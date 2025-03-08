@@ -1,0 +1,3 @@
+apis:
+  todolist.json:
+    alias: todo-list-api

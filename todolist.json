@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Todo List API",
+        "description": "OpenAPI for Todo List Restful API",
+        "version": "1",
+        "contact": {
+            "name": "Yoga Eka Pratama",
+            "email": "yogaex29pratama@gmail.com",
+            "url": "https://www.linkedin.com/in/yoga-eka-pratama-7b7b3b1b7/"
+        },
+        "license": {
+            "name": "APACHE 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://{environment}.example.com",
+            "description": "Todolist Restful API Server",
+            "variables": {
+                "environment": {
+                    "default": "dev",
+                    "description": "Server Environment",
+                    "enum": ["dev", "prod", "qa"]
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/todolist": {
+            "get": {
+                "summary": "Get all todolist",
+                "description": "Only will return active todolist",
+                "parameters": [
+                    {
+                        "name": "include done",
+                        "description": "Include done todolist in the result",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": false,
+                            "nullable": true
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "description": "Search todolist by name",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "maxLength": 100,
+                            "minLength": 1
+                        }
+                    }
+                ],
+                "responses": {}
+            },
+            "post": {
+                "summary": "Create new todolist",
+                "description": "Create new todolist",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "format": "int32",
+                                        "default": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/todolist/{todolistId}": {
+            "delete": {
+                "summary": "Delete existing todolist",
+                "description": "Delete todolist",
+                "parameters": [
+                    {
+                        "name": "todolistId",
+                        "description": "Todolist ID for delete",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100
+                        }
+                    }
+                ],
+                "responses": {}
+            },
+            "put": {
+                "summary": "Update existing todolist",
+                "description": "Update todolist",
+                "parameters": [
+                    {
+                        "name": "todolistId",
+                        "description": "Todolist ID for update",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "format": "int32",
+                                        "default": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        }
+    }
+}
